@@ -1,12 +1,12 @@
-import Block from "../Block";
-import RedButton from "../RedButton";
+import Block from "../UI/blocks/Block";
+import RedButton from "../UI/button/RedButton";
 
 
-function Simulator({ simulator }) {
+export default function Simulator({ simulator }) {
     return (
         <div className="simulator" style={{textAlign: "center"}}>
-            <div className="horizontal-container first-child-full-size" style={{display: "flex"}}>
-                <Block text={"Симулятор " + simulator.id}/>
+            <div style={{display: "flex"}}>
+                <Block text={"Симулятор " + simulator.id} style={{flex: 1}}/>
                 <RedButton text={"Удалить"} />
             </div>
 
@@ -19,8 +19,8 @@ function Simulator({ simulator }) {
 
             <div>
                 {simulator.components.map(component => (
-                    <div key={component.id} className="component-container">
-                        <Block text={"Компонент " + component.id} />
+                    <div key={component.id}>
+                        <Block text={"Компонент " + component.id} style={{backgroundColor:"aqua"}}/>
                         <Block text={"Название:" + component.name} />
                     </div>
                 ))}
@@ -29,5 +29,3 @@ function Simulator({ simulator }) {
         </div>
     )
 }
-
-export default Simulator;

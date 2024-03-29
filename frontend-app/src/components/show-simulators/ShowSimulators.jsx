@@ -1,17 +1,17 @@
-import Block from "../Block";
-import GreenButton from "../GreenButton";
-import RedButton from "../RedButton";
+import Block from "../UI/blocks/Block";
+import GreenButton from "../UI/button/GreenButton";
 import Simulator from "./Simulator";
+import CloseButton from "../UI/button/CloseButton";
 
 
-function ShowSimulators({ simulators }) {
+export default function ShowSimulators({ simulators }) {
     let isNoSimulators = false;
 
     if (typeof simulators === "undefined") isNoSimulators = true;
 
     return (
         <div className="closable-page page-container">
-            <RedButton text={"x"} />
+            <CloseButton />
             <GreenButton text={"Добавить новый симулятор"} />
 
             {isNoSimulators && <Block text={"Нет отслеживаемых симуляторов"} />}
@@ -21,5 +21,3 @@ function ShowSimulators({ simulators }) {
         </div>
     )
 }
-
-export default ShowSimulators;

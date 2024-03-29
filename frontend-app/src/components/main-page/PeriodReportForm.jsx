@@ -1,14 +1,12 @@
-import BlockButton from '../BlockButton';
-import DateInput from '../DateInput';
+import BlockButton from '../UI/button/BlockButton';
+import DateInput from '../UI/input/DateInput';
 
-function PeriodReportForm() {
+export default function PeriodReportForm() {
     return (
-        <form className="period-form">
+        <form className="period-form" style={{ marginTop: 15, display: "flex" }}>
             <DateInput hint={"Начало периода"} />
             <DateInput hint={"Конец периода"} />
-            <BlockButton text="Сформировать отчет за период" />
+            <BlockButton text="Сформировать отчет за период" style={{flex: 1}}/>
         </form>
     );
 }
-
-export default PeriodReportForm;

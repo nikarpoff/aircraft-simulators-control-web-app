@@ -1,7 +1,7 @@
-import Header from "../Header";
-import RedButton from "../RedButton";
-import Block from '../Block'
+import Header from "../UI/blocks/Header";
+import Block from '../UI/blocks/Block'
 import TechSimulatorState from "./TechSimulatorState";
+import CloseButton from "../UI/button/CloseButton";
 
 
 export default function TechCheck({ dateReport, simulatorsTechInfo }) {
@@ -11,7 +11,7 @@ export default function TechCheck({ dateReport, simulatorsTechInfo }) {
 
     return (
         <div className="closable-page page-container">
-            <RedButton text={"x"} />
+            <CloseButton />
             <Header title={`Отчет от ${dateReport}`} />
 
             {isNoSimulators && <Block text={`Нет отслеживаемых симуляторов`} />}

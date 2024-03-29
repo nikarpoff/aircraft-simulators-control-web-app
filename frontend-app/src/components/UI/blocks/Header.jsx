@@ -1,10 +1,10 @@
+import classes from "./blocks.module.css";
+
 // Компонент "Заголовок" - идентичен для всех страниц, но имеет разный текст
-function Header({title}) {
+export default function Header({title}) {
     return (
-        <header className="header">
+        <header className={classes.header}>
             <h3>{title}</h3>
         </header> 
     );
 }
-
-export default Header;

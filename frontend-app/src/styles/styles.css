@@ -10,41 +10,6 @@
     margin-right: auto
 }
 
-.main-page>.button-block {
-    margin-top: 15px;
-}
-
-.login {
-    display: flex;
-    flex-direction: column;
-}
-
-.login > .green-button {
-    margin-top: 15px;
-    align-self: flex-end;
-    width: 35%;
-}
-
-.header {
-    border: solid 2px;
-    text-align: center;
-
-    margin-bottom: 15px;
-}
-
-.block {
-    border: 2px solid #1b1b1b;
-    padding: 0px 25px;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-
-    margin-top: 15px;
-}
-
 .page-container {
     display: flex;
     flex-direction: column;
@@ -58,30 +23,7 @@
     margin-bottom: 35px;
 }
 
-.horizontal-container {
-    display: flex;
-}
-
-.first-child-full-size .block {
-    flex: 1;
-}
-
-.full-width-block {
-    flex: 1;
-}
-
-.full-width-block .input-date {
-    width: 100%;
-}
-
-.closable-page > .red-button {
-    padding: 5px 15px;
-    margin-bottom: 5px;
-
-    align-self: flex-end;
-}
-
-/* ------------------ ФОРМЫ --------------------------------- */
+/* ---------------- ПРОСТЫЕ HTML ЭЛЕМЕНТЫ ---------------- /*/
 input, select {
     padding: 10px;
     border: 2px solid #8a8989;
@@ -98,87 +40,7 @@ input:focus, select:focus {
     border-color: #555;
 }
 
-.period-form {
-    margin-top: 15px;
-    display: flex;
-}
-
-.period-form .button-block {
-    flex: 1;
-}
-
-
-.input-date:focus+.input-label {
-    top: 8px;
-    font-size: 10px;
-    color: #494949;
-}
-
-.date-input-container {
-    position: relative;
-    display: flex;
-}
-
-
-.input-label {
-    position: absolute;
-    transform: translateY(-50%);
-    left: 10px;
-    pointer-events: none;
-    color: #999;
-    top: 11px;
-    font-size: 12px;
-    transition: all 0.2s;
-}
-
-.input-date {
-    padding: 15px 10px;
-}
-
-
-.component-container > .block:first-child {
-    background-color: rgb(153, 245, 245);
-}
-
-/* ------------------ КНОПКИ --------------------------------- */
 button {
     font-size: 15px;
     cursor: pointer;
-}
-
-.red-button {
-    background-color: rgb(199, 52, 64);
-    color: #fff;
-    border: solid #741c12;
-
-    padding: 15px 25px;
-}
-
-.red-button:hover {
-    background-color: #a01e10;
-}
-
-.button-block {
-    width: 100%;
-    background-color: #fff;
-
-    border: 2px solid #242424;
-
-    padding: 15px 25px;
-}
-
-.button-block:hover {
-    background-color: #e7e7e7;
-}
-
-.green-button {
-    background-color: rgb(62, 158, 99);
-    color: #fff;
-    border: solid #267412;
-
-    padding: 15px 25px;
-}
-
-.green-button:hover {
-    background-color: #078b3a;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function PositiveIntegerInput({text}) {
+export default function PositiveIntegerInput({text}) {
   const [value, setValue] = useState('');
 
   const handleChange = (e) => {
@@ -20,5 +20,3 @@ function PositiveIntegerInput({text}) {
     />
   );
 }
-
-export default PositiveIntegerInput;

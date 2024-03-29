@@ -1,4 +1,4 @@
-import Block from "../Block";
+import Block from "../UI/blocks/Block";
 import InvalidComponent from "./InvalidComponent";
 
 

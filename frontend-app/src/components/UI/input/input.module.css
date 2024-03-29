@@ -1,0 +1,26 @@
+.inputDate:focus+.inputLabel {
+    top: 8px;
+    font-size: 10px;
+    color: #494949;
+}
+
+.dateInputContainer {
+    position: relative;
+    display: flex;
+}
+
+
+.inputLabel {
+    position: absolute;
+    transform: translateY(-50%);
+    left: 10px;
+    pointer-events: none;
+    color: #999;
+    top: 11px;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.inputDate {
+    padding: 15px 10px;
+}

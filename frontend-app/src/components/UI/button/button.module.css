@@ -1,0 +1,53 @@
+/* ------------------ КНОПКИ --------------------------------- */
+.redButton  {
+    background-color: rgb(199, 52, 64);
+    color: #fff;
+    border: solid #741c12;
+
+    padding: 15px 25px;
+}
+
+.redButton:hover {
+    background-color: #a01e10;
+}
+
+.buttonBlock{
+    width: 100%;
+    background-color: #fff;
+
+    border: 2px solid #242424;
+
+    padding: 15px 25px;
+}
+
+.buttonBlock:hover {
+    background-color: #e7e7e7;
+}
+
+.greenButton {
+    background-color: rgb(62, 158, 99);
+    color: #fff;
+    border: solid #267412;
+
+    padding: 15px 25px;
+}
+
+.greenButton:hover {
+    background-color: #078b3a;
+}
+
+.closeButton  {
+    background-color: rgb(199, 52, 64);
+    color: #fff;
+    border: solid #741c12;
+
+    padding: 5px 15px;
+    margin-bottom: 5px;
+
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.closeButton:hover {
+    background-color: #a01e10;
+}

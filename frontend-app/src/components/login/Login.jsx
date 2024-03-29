@@ -1,15 +1,13 @@
-import GreenButton from "../GreenButton";
-import Header from "../Header";
+import GreenButton from "../UI/button/GreenButton";
+import Header from "../UI/blocks/Header";
 
-function Login() {
+export default function Login() {
     return (
-        <div className="login">
+        <div className="login page-container">
             <Header title={"Вход в систему"} />
-            <input className="block-input" type="text" placeholder="Введите имя пользователя"></input>
+            <input className="block-input" type="text" style={{marginBottom:15}} placeholder="Введите имя пользователя"></input>
             <input className="block-input" type="password" placeholder="Введите пароль"></input>
-            <GreenButton text={"Войти"} style="margin-top:15px"/>
+            <GreenButton text={"Войти"} style={{marginTop:15, alignSelf:"flex-end", width: "35%"}}/>
         </div>
     );
 }
-
-export default Login

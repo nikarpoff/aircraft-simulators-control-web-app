@@ -73,11 +73,11 @@ function App() {
 
     return (
         <div className="App">
-            {/* <Login /> */}
-            {/* <MainPage></MainPage> */}
-            {/* <NewSimulator></NewSimulator> */}
-            <ShowSimulators simulators={simulators}/>
-            {/* <TechCheck simulatorsTechInfo={simulatorsTechInfo} dateReport={new Date().toLocaleDateString()}/> */}
+             {/*<Login />*/}
+             <MainPage></MainPage>
+            {/* <NewSimulator></NewSimulator>*/}
+            {/*<ShowSimulators simulators={simulators}/>*/}
+            {/*<TechCheck simulatorsTechInfo={simulatorsTechInfo} dateReport={new Date().toLocaleDateString()}/>*/}
         </div>
     );
 }
