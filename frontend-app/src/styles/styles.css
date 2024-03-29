@@ -4,6 +4,7 @@
     padding: 20px;
     font-family: Arial, sans-serif;
     max-width: 700px;
+    min-width: 700px;
 
     text-align: center;
     margin-left: auto;
@@ -21,6 +22,12 @@
 
     margin-top: 15px;
     margin-bottom: 35px;
+}
+
+.analytics-block {
+    border: 2px solid #1b1b1b;
+    padding: 0 5px;
+    flex: 1;
 }
 
 /* ---------------- ПРОСТЫЕ HTML ЭЛЕМЕНТЫ ---------------- /*/
@@ -43,4 +50,29 @@ input:focus, select:focus {
 button {
     font-size: 15px;
     cursor: pointer;
+}
+
+
+/* Стиль для списка ul */
+ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем отступы вокруг списка */
+}
+
+/* Стиль для элементов списка li */
+ul li {
+    padding: 10px 0; /* Добавляем отступы сверху и снизу для каждого элемента списка */
+    border-bottom: 1px solid #ccc; /* Добавляем разделительные линии между элементами списка */
+}
+
+/* Стиль для ссылок внутри элементов списка li */
+ul li a {
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    color: #333; /* Цвет текста */
+    transition: color 0.3s; /* Плавное изменение цвета текста при наведении */
+}
+
+/* Изменение цвета текста при наведении */
+ul li a:hover {
+    color: #007bff; /* Цвет текста при наведении */
 }
