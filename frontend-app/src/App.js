@@ -125,12 +125,12 @@ function App() {
     return (
         <div className="App">
              {/*<Login />*/}
-             {/*<MainPage></MainPage>*/}
-            {/* <NewSimulator></NewSimulator>*/}
+             <MainPage></MainPage>
+             {/*<NewSimulator></NewSimulator>*/}
             {/*<ShowSimulators simulators={simulators}/>*/}
             {/*<TechCheck simulatorsTechInfo={simulatorsTechInfo} dateReport={new Date().toLocaleDateString()}/>*/}
             {/*<StatusCheck dateReport={new Date().toLocaleDateString()} simulatorsStatuses={simulatorsStatuses}></StatusCheck>*/}
-            <StatisticsReport startDate={"19.03.2024"} endDate={"29.03.2024"} simulatorStatistics={simulatorsStatistics} />
+            {/*<StatisticsReport startDate={"19.03.2024"} endDate={"29.03.2024"} simulatorStatistics={simulatorsStatistics} />*/}
         </div>
     );
 }
