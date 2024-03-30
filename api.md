@@ -146,9 +146,9 @@ simulator: {
 
 schema response:
 ```js
-status: string // Такой симулятор уже отслеживается (ALREADY EXISTS)/Симулятор не найден (NOT FOUND)/Симулятор будет отслеживаться (OK)/Симулятор не будет отслеживаться по причине не найденных компонент (COMPONENTS NOT FOUND)
+status: string // Такой симулятор уже отслеживается (ALREADY EXISTS)/Симулятор не найден (NOT FOUND)/Симулятор будет отслеживаться (OK)/Симулятор не будет отслеживаться по причине не найденных компонент (COMPONENTS NOT FOUND) / Отслеживаться не будет ввиду внутренней ошибки сервер (INTERNAL ERROR)
 
-simulator: [{
+simulator: {
     id: int,
     model: string,
     type: string,
@@ -159,7 +159,7 @@ simulator: [{
     components: [
         { id: int, name: string }
     ]
-}]
+}
 ```
 
 #### removeSimulator

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AircraftSimultarorsControl.Controllers
+namespace AircraftSimulatorsControl.Controllers
 {
     [ApiController]
     [Route("[controller]")]

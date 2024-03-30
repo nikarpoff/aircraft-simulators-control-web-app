@@ -1,4 +1,4 @@
-namespace AircraftSimultarorsControl
+namespace AircraftSimulatorsControl
 {
     public class WeatherForecast
     {
