@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres:13.11
+    environment:
+      POSTGRES_DB: "aircraft_simulators_control"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - 6432:5432
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+
+  server:
+    build:
+      context: ./AircraftSimulatorsControl
+      dockerfile: Dockerfile
+    ports:
+      - 8443:8443
+    depends_on:
+      - database

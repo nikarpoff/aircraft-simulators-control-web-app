@@ -1,4 +1,4 @@
-﻿namespace AircraftSimulatorsControl.DTO.API
+﻿namespace AircraftSimulatorsControl.DTO
 {
 
     public class TechInfoResponse

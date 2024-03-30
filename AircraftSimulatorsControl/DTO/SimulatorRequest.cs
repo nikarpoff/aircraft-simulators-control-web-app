@@ -1,9 +1,7 @@
-﻿namespace AircraftSimulatorsControl.DTO.Entity
+﻿namespace AircraftSimulatorsControl.DTO
 {
-    public class Simulator
+    public class SimulatorRequest
     {
-
-        public int Id { get; set; }
 
         public string Model { get; set; } = "Unknown model";
 
@@ -22,10 +20,9 @@
         public class Component
         {
 
-            public int Id { get; set; }
-
             public string Name { get; set; } = "Unknown component";
 
         }
+
     }
 }

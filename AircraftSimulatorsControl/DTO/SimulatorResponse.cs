@@ -1,7 +1,7 @@
-﻿using AircraftSimulatorsControl.DTO.Entity;
+﻿using AircraftSimulatorsControl.DAL.Entity;
 using AircraftSimulatorsControl.DTO.Enums;
 
-namespace AircraftSimulatorsControl.DTO.API
+namespace AircraftSimulatorsControl.DTO
 {
     public class SimulatorResponse
     {

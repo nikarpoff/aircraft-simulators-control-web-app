@@ -1,3 +1,4 @@
+using AircraftSimulatorsControl.DAL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AircraftSimulatorsControl.Controllers
@@ -6,6 +7,10 @@ namespace AircraftSimulatorsControl.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+
+        private readonly ComponentService _service;
+
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -13,21 +18,15 @@ namespace AircraftSimulatorsControl.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ComponentService service)
+        {   _service = service;
             _logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return (IEnumerable<WeatherForecast>) _service.GetAll();
         }
     }
 }
