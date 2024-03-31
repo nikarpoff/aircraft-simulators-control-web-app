@@ -18,6 +18,7 @@ services:
       context: ./AircraftSimulatorsControl
       dockerfile: Dockerfile
     ports:
-      - 8443:8443
+      - 32669
+      - 32700
     depends_on:
       - database
