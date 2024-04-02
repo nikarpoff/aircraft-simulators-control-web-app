@@ -15,7 +15,7 @@ export default function Simulator({ simulator }) {
             <Block text={"Название: " + simulator.simulatorName} />
             <Block text={"Дата производства: " + simulator.productionDate} />
             <Block text={"Дата ввода в эксплуатацию: " + simulator.commissioningDate} />
-            <Block text={"Периодичность тех. осмотра: " + simulator.techFrequrency + " мес."} />
+            <Block text={"Периодичность тех. осмотра: " + simulator.techCheckFrequency + " мес."} />
 
             <div>
                 {simulator.components.map(component => (

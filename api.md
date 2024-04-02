@@ -19,20 +19,21 @@ schema request: *empty*
 
 schema response:
 ```json
-simulatorsStatuses: {
-    id: int,
-    isActive: boolean,
-    isOccupied: boolean, // Занят ли (проводится ли занятие)
-    components: [
-        {   
+lastReport: [
+    simulators: {
+        id: int,
+        isActive: boolean,
+        isOccupied: boolean, // Занят ли (проводится ли занятие)
+        components: [{   
             id: int,
             responseTime: int,
             temperature: int,
             power: int,
             voltage: int 
-        }
-    ]
-}
+        }]
+    }
+]
+
 ```
 
 #### getReportByPeriod
@@ -44,10 +45,8 @@ url: */period*
 
 schema request: 
 ```js
-simulatorsStatuses: {
-    startDate: string,
-    endDate: string
-}
+startDate: string,
+endDate: string
 ```
 
 schema response:

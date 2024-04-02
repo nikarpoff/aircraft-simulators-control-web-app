@@ -1,0 +1,36 @@
+#   ===========     Common and SSL   ===========
+server:
+  port: 8443
+  ssl:
+    key-store: target/keystore.jks
+    key-store-password: password
+    keyStoreType: PKCS12
+    keyAlias: marks-table
+
+
+#   ===========     Spring and Database (postgres + hibernate)    ===========
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+  datasource:
+    url: jdbc:postgresql://database:5432/aircraft_simulators_control
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        globally_quoted_identifiers: true
+        hbm2ddl:
+          auto: create
+
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true

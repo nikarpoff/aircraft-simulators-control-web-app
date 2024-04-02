@@ -1,8 +1,11 @@
 import BlockButton from '../UI/button/BlockButton';
 import DateInput from '../UI/input/DateInput';
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function PeriodReportForm({ formReport }) {
+    const navigate = useNavigate();
+
     const [period, setPeriod] = useState({
         startDate: '',
         endDate: ''
@@ -35,13 +38,18 @@ export default function PeriodReportForm({ formReport }) {
         }
 
         formReport(period);
+
+        navigate(`/simulator/report?startDate=${period.startDate}&endDate=${period.endDate}`)
     }
 
     return (
         <form className="period-form" style={{ marginTop: 15, display: "flex" }}>
             <DateInput name="startDate" hint={"Начало периода"} onChange={handleChange} />
             <DateInput name="endDate" hint={"Конец периода"} onChange={handleChange} />
-            <BlockButton onClick={handleFormDate} text="Сформировать отчет за период" style={{flex: 1}}/>
+            <BlockButton onClick={handleFormDate}
+                         text="Сформировать отчет за период"
+                         style={{flex: 1}}
+            />
         </form>
     );
 }

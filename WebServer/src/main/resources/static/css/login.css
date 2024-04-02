@@ -1,0 +1,62 @@
+.App {
+    border: 2px solid #363636;
+
+    padding: 20px;
+    font-family: Roboto, sans-serif;
+    max-width: 700px;
+    min-width: 700px;
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+}
+
+input, select {
+    padding: 10px;
+    border: 2px solid #8a8989;
+    font-size: 16px;
+    outline: none;
+}
+
+select {
+    padding-left: 6px;
+}
+
+input:hover, select:hover,
+input:focus, select:focus {
+    border-color: #555;
+}
+
+button {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.block {
+    border: 2px solid #1b1b1b;
+    padding: 0 25px;
+}
+
+.header {
+    border: solid 2px;
+    text-align: center;
+
+    margin-bottom: 15px;
+}
+
+.greenButton {
+    background-color: rgb(62, 158, 99);
+    color: #fff;
+    border: solid #267412;
+
+    padding: 15px 25px;
+}
+
+.greenButton:hover {
+    background-color: #078b3a;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <link href="/css/login.css" rel="stylesheet">
+</head>
+<body>
+<div class="App">
+    <h3 class="header" style="padding: 15px">Вход в систему</h3>
+
+    <form th:action="@{/login}" method="post" style="display: flex; flex-direction: column">
+        <input class="block-input"
+               type="text"
+               id="username"
+               name="username"
+               placeholder="Введите имя пользователя"
+               style="margin-bottom:15px; flex: 1"
+               required>
+
+        <input class="block-input"
+               type="password"
+               id="password"
+               name="password"
+               placeholder="Введите пароль"
+               style="margin-bottom:15px; flex: 1"
+               required>
+
+        <div th:if="${param.error}">
+            No such user!
+        </div>
+        <button class="greenButton" type="submit"
+                style="margin-top:15px;align-self:flex-end;width:35%" >Войти</button>
+    </form>
+</div>
+
+</body>
+</html>
+
