@@ -3,16 +3,44 @@ import Block from '../UI/blocks/Block'
 import TechSimulatorState from "./TechSimulatorState";
 import CloseButton from "../UI/button/CloseButton";
 import {useNavigate} from "react-router-dom";
+import {useEffect, useMemo, useState} from "react";
 
 
 export default function TechCheck() {
 
     const navigate = useNavigate();
 
-    let isNoSimulators = false;
-
     let dateReport = new Date().toLocaleDateString();
-    let simulatorsTechInfo = getSimulatorsTechInfo();
+
+    const [simulatorsTechInfo, setTechInfo] = useState( {techCheck: []});
+
+    const isNoSimulators = useMemo(() => {
+        return simulatorsTechInfo.techCheck === [];
+    }, [simulatorsTechInfo])
+
+    useEffect(() => {
+        getTechInfo().then(res => {
+            setTechInfo(res);
+        })
+    }, []);
+
+
+    async function getTechInfo() {
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+
+        try {
+            const response = await fetch("https://localhost:8443/api/v1/tech", options);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching simulators:', error);
+            return [];
+        }
+    }
 
     function getSimulatorsTechInfo() {
         let simulatorsTechInfoResponse = [
@@ -41,9 +69,6 @@ export default function TechCheck() {
         return simulatorsTechInfoResponse;
     }
 
-
-    if (typeof simulatorsTechInfo === "undefined") isNoSimulators = true;
-
     return (
         <div className="closable-page page-container">
             <CloseButton onClick={() => navigate(-1)}/>
@@ -51,8 +76,8 @@ export default function TechCheck() {
 
             {isNoSimulators && <Block text={`Нет отслеживаемых симуляторов`} />}
 
-            {!isNoSimulators && simulatorsTechInfo.map(
-                simulatorTechInfo => <TechSimulatorState key={simulatorTechInfo.id} simulatorTechInfo={simulatorTechInfo}/>
+            {!isNoSimulators && simulatorsTechInfo.techCheck.map(
+                techCheck => <TechSimulatorState key={techCheck.id} simulatorTechInfo={techCheck}/>
             )}
         </div>
     )

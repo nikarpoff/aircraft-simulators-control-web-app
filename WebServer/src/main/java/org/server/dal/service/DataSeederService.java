@@ -39,7 +39,7 @@ public class DataSeederService {
         simulator2.setType("Симулятор гражданской авиации");
         simulator2.setProductionDate(LocalDate.of(2001, 11, 9));
         simulator2.setCommissioningDate(LocalDate.of(2002, 1, 21));
-        simulator2.setLastTechCheckDate(LocalDate.of(2024, 5, 1));
+        simulator2.setLastTechCheckDate(LocalDate.of(2018, 5, 1));
         simulator2.setTechCheckFrequency(36);
 
 

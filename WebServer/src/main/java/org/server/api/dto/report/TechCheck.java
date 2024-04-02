@@ -1,28 +1,27 @@
-package org.server.api.dto.report.period;
+package org.server.api.dto.report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ComponentStatistics {
+public class TechCheck {
 
     @JsonProperty
-    String id;
+    private String id;
 
     @JsonProperty
-    int[] responsesTime;
+    private LocalDate lastTechCheckDate;
 
     @JsonProperty
-    int[] temperatures;
+    private String description;
 
     @JsonProperty
-    int[] powers;
-
-    @JsonProperty
-    int[] voltages;
+    private boolean isTechCheckRequired;
 
 }

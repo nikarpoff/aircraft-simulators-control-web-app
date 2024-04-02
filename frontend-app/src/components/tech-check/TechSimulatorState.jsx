@@ -5,8 +5,6 @@ import InvalidComponent from "./InvalidComponent";
 export default function TechSimulatorState({ simulatorTechInfo }) {
     let isComponentsBroken = false;
 
-    if (typeof simulatorTechInfo.invalidComponents !== 'undefined') isComponentsBroken = true;
-
     return (
         <div className="simulator">
             <Block text={`Симулятор ${simulatorTechInfo.id}`} />

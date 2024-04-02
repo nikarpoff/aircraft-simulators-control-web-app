@@ -1,4 +1,4 @@
-package org.server.api.dto.report.period;
+package org.server.api.dto.report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -7,15 +7,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class SimulatorStatistics {
+@NoArgsConstructor
+@Data
+public class TechCheckResponse {
 
     @JsonProperty
-    private String id;
-
-    @JsonProperty
-    private List<ComponentStatistics> components;
+    List<TechCheck> techCheck;
 
 }

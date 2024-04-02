@@ -2,6 +2,7 @@ package org.server.api.controller;
 
 import lombok.AllArgsConstructor;
 import org.server.api.dto.report.last.LastReport;
+import org.server.api.dto.report.period.PeriodReport;
 import org.server.api.dto.simulator.SimulatorRequest;
 import org.server.api.dto.simulator.SimulatorResponse;
 import org.server.api.exception.ForbiddenException;
@@ -55,5 +56,21 @@ public class SimulatorController {
         }
 
         return new ResponseEntity<>(simulatorService.parseAndAdd(simulatorRequest), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/statistics",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    public ResponseEntity<PeriodReport> getSimulatorsStatistics(Principal principal) {
+        if (principal == null) {
+            throw new ForbiddenException();
+        }
+
+        try {
+            return new ResponseEntity<>(simulatorService.getStatistics(), HttpStatus.OK);
+        } catch (DatabaseException e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
