@@ -32,6 +32,8 @@ public class ReportService extends AbstractCRUDService<Report, Integer> {
 
         LastReport lastReport = new LastReport();
 
+        lastReport.setReportDate(report.getReportDateTime());
+
         List<SimulatorReport> lastReportSimulators = new ArrayList<>();
         List<SimulatorStatus> simulators = report.getSimulatorStatuses();
 
@@ -41,14 +43,14 @@ public class ReportService extends AbstractCRUDService<Report, Integer> {
 
             simulatorReport.setActive(simulator.isActive());
             simulatorReport.setOccupied(simulator.isOccupied());
-            simulatorReport.setId(simulator.getId());
+            simulatorReport.setId(Integer.toString(simulator.getId()) + " " +  simulator.getSimulator().getSimulatorName());
 
             List<ComponentReport> lastReportComponents = new ArrayList<>();
             List<ComponentStatus> components = simulator.getComponentsStatuses();
 
             for (ComponentStatus component : components) {
                 ComponentReport componentReport = new ComponentReport(
-                        component.getId(),
+                        Integer.toString(component.getId()) + " " + component.getComponent().getName(),
                         component.getResponseTime(),
                         component.getTemperature(),
                         component.getPower(),

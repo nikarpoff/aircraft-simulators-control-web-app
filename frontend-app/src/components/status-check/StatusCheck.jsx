@@ -2,14 +2,42 @@ import Header from "../UI/blocks/Header";
 import CloseButton from "../UI/button/CloseButton";
 import SimulatorStatus from "./SimulatorStatus";
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import moment from "moment";
 
 
 export default function StatusCheck() {
 
-    // TODO change to server date
-    let dateReport = new Date().toLocaleDateString();
+    const [report, setReport] = useState( {
+        reportDate: "loading...",
+        simulators: []
+    });
 
-    let simulatorsStatuses = getSimulatorsStatuses();
+    useEffect(() => {
+        getReport().then(res => {
+            res.reportDate = moment(res.reportDate);
+            res.reportDate = res.reportDate.format('MMMM Do YYYY, h:mm:ss a');
+            setReport(res);
+        })
+    }, []);
+
+
+    async function getReport() {
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+
+        try {
+            const response = await fetch("https://localhost:8443/api/v1/report/last", options);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching simulators:', error);
+            return [];
+        }
+    }
 
     function getSimulatorsStatuses() {
         let simulatorsStatusesResponse = [
@@ -45,9 +73,9 @@ export default function StatusCheck() {
     return (
         <div className="page-container">
             <CloseButton onClick={() => navigate(-1)} />
-            <Header title={`Отчет от ${dateReport}`} />
+            <Header title={`Отчет от ${report.reportDate}`} />
 
-            {simulatorsStatuses.map(simulatorStatus => <SimulatorStatus simulatorStatus={simulatorStatus}/>)}
+            {report.simulators.map(simulatorStatus => <SimulatorStatus simulatorStatus={simulatorStatus}/>)}
         </div>
     );
 }

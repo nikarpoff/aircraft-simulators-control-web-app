@@ -9,12 +9,12 @@ import java.util.List;
 public class SimulatorReport {
 
     @JsonProperty
-    private int id;
+    private String id;
 
-    @JsonProperty
+    @JsonProperty()
     private boolean isActive;
 
-    @JsonProperty
+    @JsonProperty()
     private boolean isOccupied;
 
     @JsonProperty

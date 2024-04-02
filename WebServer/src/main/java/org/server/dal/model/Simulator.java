@@ -38,7 +38,7 @@ public class Simulator implements DatabaseEntity {
     @Column(name = "tech_check_frequency")
     private int techCheckFrequency;
 
-    @OneToMany(mappedBy = "simulator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "simulator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Component> components;
 
     @OneToMany(mappedBy = "simulator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

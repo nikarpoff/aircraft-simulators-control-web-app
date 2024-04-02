@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ComponentReport {
 
     @JsonProperty
-    int id;
+    String id;
 
     @JsonProperty
     int responseTime;

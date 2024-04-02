@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Report implements DatabaseEntity {
     private int id;
 
     @Column(name = "report_date_time")
-    private LocalDate reportDateTime;
+    private LocalDateTime reportDateTime;
 
     @OneToMany(mappedBy = "report", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<SimulatorStatus> simulatorStatuses;
