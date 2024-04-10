@@ -19,105 +19,81 @@
     <version>2.7.1</version>
   </parent>
 
-  <repositories>
-    <repository>
-      <id>default-repo</id>
-      <url>https://repo.maven.apache.org/maven2/</url>
-    </repository>
-    <repository>
-      <id>confluent</id>
-      <url>https://packages.confluent.io/maven/</url>
-    </repository>
-  </repositories>
+<!--  <repositories>-->
+<!--    <repository>-->
+<!--      <id>default-repo</id>-->
+<!--      <url>https://repo.maven.apache.org/maven2/</url>-->
+<!--    </repository>-->
+<!--    <repository>-->
+<!--      <id>confluent</id>-->
+<!--      <url>https://packages.confluent.io/maven/</url>-->
+<!--    </repository>-->
+<!--  </repositories>-->
 
 
   <dependencies>
 
+    <!--  Spring  -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.kafka</groupId>
-      <artifactId>spring-kafka</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.kafka</groupId>
-      <artifactId>kafka-streams</artifactId>
-
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>javax.json</groupId>
-      <artifactId>javax.json-api</artifactId>
-
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-elasticsearch</artifactId>
-    </dependency>
-
-
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+
+    <!--  kafka  -->
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-      <version>1.0.4</version>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
     </dependency>
 
+    <!--  Lombok  -->
     <dependency>
-      <groupId>io.confluent</groupId>
-      <artifactId>kafka-avro-serializer</artifactId>
-      <version>4.0.0</version>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <type>jar</type>
     </dependency>
 
+    <!--  Schema registry  -->
+<!--    <dependency>-->
+<!--      <groupId>io.confluent</groupId>-->
+<!--      <artifactId>kafka-schema-registry-client</artifactId>-->
+<!--      <version>5.3.0</version>-->
+<!--    </dependency>-->
 
-    <dependency>
-      <groupId>io.confluent</groupId>
-      <artifactId>kafka-schema-registry-client</artifactId>
-      <version>5.3.0</version>
-    </dependency>
+    <!--  Avro serializer  -->
+<!--    <dependency>-->
+<!--      <groupId>io.confluent</groupId>-->
+<!--      <artifactId>kafka-avro-serializer</artifactId>-->
+<!--      <version>4.0.0</version>-->
+<!--    </dependency>-->
 
-    <dependency>
-      <groupId>org.apache.avro</groupId>
-      <artifactId>avro</artifactId>
-      <version>1.8.2</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>io.confluent</groupId>-->
+<!--      <artifactId>kafka-streams-avro-serde</artifactId>-->
+<!--      <version>5.3.0</version>-->
+<!--      <exclusions>-->
+<!--        <exclusion>-->
+<!--          <groupId>org.slf4j</groupId>-->
+<!--          <artifactId>slf4j-log4j12</artifactId>-->
+<!--        </exclusion>-->
+<!--      </exclusions>-->
+<!--    </dependency>-->
 
-    <dependency>
-      <groupId>io.confluent</groupId>
-      <artifactId>kafka-streams-avro-serde</artifactId>
-      <version>5.3.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-log4j12</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.glassfish</groupId>-->
+<!--      <artifactId>javax.json</artifactId>-->
+<!--      <version>1.0.4</version>-->
+<!--    </dependency>-->
 
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-
-
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>javax.json</groupId>-->
+<!--      <artifactId>javax.json-api</artifactId>-->
+<!--    </dependency>-->
 
   </dependencies>
 

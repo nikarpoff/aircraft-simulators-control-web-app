@@ -1,7 +1,7 @@
 package org.simulator.kafka;
 
-import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,24 +24,30 @@ public class KafkaConsumerConfig {
     private Integer groupId;
 
     @Bean
-    public ConsumerFactory<org.apache.avro.generic.GenericData.Record, org.apache.avro.generic.GenericData.Record> consumerFactory() {
+    public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
-        
-                
-        props.put("schema.registry.url", "http://schema-registry:8081");
+        props.put(
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class);
+        props.put(
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class);
+
+//        props.put("schema.registry.url", "http://schema-registry:8081");
+
+        System.out.println(props.get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG));
+        System.out.println(props.get(ConsumerConfig.GROUP_ID_CONFIG));
+
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<org.apache.avro.generic.GenericData.Record, org.apache.avro.generic.GenericData.Record>
-            kafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
 
-        ConcurrentKafkaListenerContainerFactory<org.apache.avro.generic.GenericData.Record, org.apache.avro.generic.GenericData.Record> factory
-                = new ConcurrentKafkaListenerContainerFactory<>();
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
