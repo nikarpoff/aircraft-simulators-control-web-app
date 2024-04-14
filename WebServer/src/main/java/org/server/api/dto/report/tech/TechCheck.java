@@ -1,4 +1,4 @@
-package org.server.api.dto.report;
+package org.server.api.dto.report.tech;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

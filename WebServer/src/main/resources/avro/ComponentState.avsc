@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "ComponentState",
+  "namespace": "org.server.avro.model",
+  "fields": [
+    { "name": "id", "type": "string", "avro.java.string": "String" },
+    { "name": "responseTime", "type": "int" },
+    { "name": "temperature", "type": "int" },
+    { "name": "power", "type": "int" },
+    { "name": "voltage", "type": "int" }
+  ]
+}

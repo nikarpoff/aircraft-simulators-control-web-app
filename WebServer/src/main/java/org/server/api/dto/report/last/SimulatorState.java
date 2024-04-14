@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class SimulatorReport {
+public class SimulatorState {
 
     @JsonProperty
     private String id;
@@ -18,6 +18,6 @@ public class SimulatorReport {
     private boolean isOccupied;
 
     @JsonProperty
-    private List<ComponentReport> components;
+    private List<ComponentState> components;
 
 }

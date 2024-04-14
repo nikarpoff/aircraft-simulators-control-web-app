@@ -1,8 +1,8 @@
 package org.server.dal.service;
 
 import lombok.AllArgsConstructor;
-import org.server.api.dto.report.TechCheck;
-import org.server.api.dto.report.TechCheckResponse;
+import org.server.api.dto.report.tech.TechCheck;
+import org.server.api.dto.report.tech.TechCheckResponse;
 import org.server.dal.exception.DatabaseException;
 import org.server.dal.model.Simulator;
 import org.springframework.stereotype.Service;

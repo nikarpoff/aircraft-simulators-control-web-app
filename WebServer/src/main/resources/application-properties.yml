@@ -10,6 +10,10 @@ server:
 
 #   ===========     Spring and Database (postgres + hibernate)    ===========
 spring:
+  kafka:
+    properties:
+      allow.auto.create.topics: false
+
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher

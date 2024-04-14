@@ -21,6 +21,13 @@ services:
       - 8443:8443
     depends_on:
       - database
+    environment:
+      - KAFKA_BOOTSTRAPADDRESS=kafka:9092
+      - KAFKA_SIMULATOR_TOPIC=states
+      - KAFKA_REPLY_TOPIC=states_reply
+      - KAFKA_PARTITION_NUMBER=3
+      - KAFKA_GROUPID=6654
+      - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -46,24 +53,24 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
-  # schema-registry:
-  #   image: confluentinc/cp-schema-registry:7.0.1
-  #   ports:
-  #     - 8081:8081
-  #     - 8181:8181
-  #   restart: always
-  #   environment:
-  #     - SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=kafka:9092
-  #     - SCHEMA_REGISTRY_HOST_NAME=schema-registry
-  #     - SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081
-  #   links:
-  #     - zookeeper
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.0.1
+    ports:
+      - 8081:8081
+      - 8181:8181
+    restart: always
+    environment:
+      - SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=kafka:9092
+      - SCHEMA_REGISTRY_HOST_NAME=schema-registry
+      - SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081
+    links:
+      - zookeeper
 
   kafka-ui:
     image: provectuslabs/kafka-ui
     container_name: kafka-ui
     ports:
-      - "8090:8080"
+      - 8090:8080
     restart: always
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
@@ -79,8 +86,38 @@ services:
       context: ./Simulator
     environment:
       - KAFKA_BOOTSTRAPADDRESS=kafka:9092
-      - KAFKA_SIMULATOR_TOPIC=abcd
+      - KAFKA_SIMULATOR_TOPIC=states
       - KAFKA_GROUPID=7654
+      - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - KAFKA_REPLY_TOPIC=states_reply
+    links:
+      - kafka
+    depends_on:
+      - kafka
+  
+  simulator2:
+    build:
+      context: ./Simulator
+    environment:
+      - KAFKA_BOOTSTRAPADDRESS=kafka:9092
+      - KAFKA_SIMULATOR_TOPIC=states
+      - KAFKA_GROUPID=7654
+      - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - KAFKA_REPLY_TOPIC=states_reply
+    links:
+      - kafka
+    depends_on:
+      - kafka
+
+  simulator3:
+    build:
+      context: ./Simulator
+    environment:
+      - KAFKA_BOOTSTRAPADDRESS=kafka:9092
+      - KAFKA_SIMULATOR_TOPIC=states
+      - KAFKA_GROUPID=7654
+      - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - KAFKA_REPLY_TOPIC=states_reply
     links:
       - kafka
     depends_on:

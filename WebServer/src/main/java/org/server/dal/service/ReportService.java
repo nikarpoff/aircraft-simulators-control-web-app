@@ -1,16 +1,14 @@
 package org.server.dal.service;
 
-import org.server.api.dto.report.last.ComponentReport;
+import org.server.api.dto.report.last.ComponentState;
 import org.server.api.dto.report.last.LastReport;
-import org.server.api.dto.report.last.SimulatorReport;
-import org.server.api.dto.report.period.PeriodReport;
+import org.server.api.dto.report.last.SimulatorState;
 import org.server.dal.exception.DatabaseException;
 import org.server.dal.model.*;
 import org.server.dal.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,22 +32,22 @@ public class ReportService extends AbstractCRUDService<Report, Integer> {
 
         lastReport.setReportDate(report.getReportDateTime());
 
-        List<SimulatorReport> lastReportSimulators = new ArrayList<>();
+        List<SimulatorState> lastReportSimulators = new ArrayList<>();
         List<SimulatorStatus> simulators = report.getSimulatorStatuses();
 
         for (SimulatorStatus simulator : simulators) {
 
-            SimulatorReport simulatorReport = new SimulatorReport();
+            SimulatorState simulatorState = new SimulatorState();
 
-            simulatorReport.setActive(simulator.isActive());
-            simulatorReport.setOccupied(simulator.isOccupied());
-            simulatorReport.setId(Integer.toString(simulator.getId()) + " " +  simulator.getSimulator().getSimulatorName());
+            simulatorState.setActive(simulator.isActive());
+            simulatorState.setOccupied(simulator.isOccupied());
+            simulatorState.setId(Integer.toString(simulator.getId()) + " " +  simulator.getSimulator().getSimulatorName());
 
-            List<ComponentReport> lastReportComponents = new ArrayList<>();
+            List<ComponentState> lastReportComponents = new ArrayList<>();
             List<ComponentStatus> components = simulator.getComponentsStatuses();
 
             for (ComponentStatus component : components) {
-                ComponentReport componentReport = new ComponentReport(
+                ComponentState componentState = new ComponentState(
                         Integer.toString(component.getId()) + " " + component.getComponent().getName(),
                         component.getResponseTime(),
                         component.getTemperature(),
@@ -57,11 +55,11 @@ public class ReportService extends AbstractCRUDService<Report, Integer> {
                         component.getVoltage()
                 );
 
-                lastReportComponents.add(componentReport);
+                lastReportComponents.add(componentState);
             }
 
-            simulatorReport.setComponents(lastReportComponents);
-            lastReportSimulators.add(simulatorReport);
+            simulatorState.setComponents(lastReportComponents);
+            lastReportSimulators.add(simulatorState);
 
         }
 

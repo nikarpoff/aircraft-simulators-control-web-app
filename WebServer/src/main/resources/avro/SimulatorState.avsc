@@ -1,0 +1,15 @@
+{
+  "name": "SimulatorState",
+  "type": "record",
+  "namespace": "org.server.avro.model",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    { "name": "isActive", "type": "boolean" },
+    { "name": "isOccupied", "type": "boolean" },
+    { "name": "components", "type": { "type": "array", "items": "ComponentState" } }
+  ]
+}

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ComponentReport {
+public class ComponentState {
 
     @JsonProperty
     String id;

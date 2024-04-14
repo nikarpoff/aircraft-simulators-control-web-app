@@ -1,9 +1,7 @@
 package org.server.api.controller;
 
 import lombok.AllArgsConstructor;
-import org.server.api.dto.report.TechCheck;
-import org.server.api.dto.report.TechCheckResponse;
-import org.server.api.dto.simulator.SimulatorResponse;
+import org.server.api.dto.report.tech.TechCheckResponse;
 import org.server.api.exception.ForbiddenException;
 import org.server.dal.exception.DatabaseException;
 import org.server.dal.service.TechCheckService;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
