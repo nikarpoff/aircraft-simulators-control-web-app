@@ -1,21 +1,26 @@
 package org.server.dal.service;
 
-import lombok.AllArgsConstructor;
 import org.server.dal.exception.DatabaseException;
 import org.server.dal.model.Component;
 import org.server.dal.model.Simulator;
-import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
 
-@Service
-@AllArgsConstructor
+@org.springframework.stereotype.Component()
 public class DataSeederService {
 
-    ComponentService componentService;
-    SimulatorService simulatorService;
+    final ComponentService componentService;
 
+    final SimulatorService simulatorService;
+
+    public DataSeederService(ComponentService componentService, SimulatorService simulatorService) {
+        this.componentService = componentService;
+        this.simulatorService = simulatorService;
+    }
+
+    @Transactional
     public void initData() throws DatabaseException {
 
         if (!simulatorService.getAll().isEmpty()) {
@@ -52,56 +57,55 @@ public class DataSeederService {
         simulator3.setLastTechCheckDate(LocalDate.of(2020, 07, 14));
         simulator3.setTechCheckFrequency(24);
 
-        try {
-            simulator = simulatorService.save(simulator);
-            simulator2 = simulatorService.save(simulator2);
-            simulator3 = simulatorService.save(simulator3);
-        } catch (DatabaseException e) {
-            throw e;
-        }
-
         Component component = new Component();
         component.setName("MUTH0");
         component.setSimulator(simulator);
+        component.setComponentStatuses(new ArrayList<>());
 
         Component component2 = new Component();
         component2.setName("MUTL2");
         component2.setSimulator(simulator);
+        component2.setComponentStatuses(new ArrayList<>());
 
         Component component3 = new Component();
         component3.setName("YUA21");
         component3.setSimulator(simulator2);
+        component3.setComponentStatuses(new ArrayList<>());
 
         Component component4 = new Component();
         component4.setName("LMO00");
         component4.setSimulator(simulator3);
+        component4.setComponentStatuses(new ArrayList<>());
 
         Component component5 = new Component();
         component5.setName("ORH12");
         component5.setSimulator(simulator3);
+        component5.setComponentStatuses(new ArrayList<>());
 
         Component component6 = new Component();
         component6.setName("PLL01");
         component6.setSimulator(simulator3);
-
-        try {
-            component = componentService.save(component);
-            component2 = componentService.save(component2);
-            component3 = componentService.save(component3);
-            component4 = componentService.save(component4);
-            component5 = componentService.save(component5);
-            component6 = componentService.save(component6);
-        } catch (DatabaseException e) {
-            throw e;
-        }
+        component6.setComponentStatuses(new ArrayList<>());
 
         simulator.setComponents(new ArrayList<>(Arrays.asList(new Component[]{component, component2})));
         simulator2.setComponents(new ArrayList<>(Arrays.asList(new Component[]{component3})));
         simulator3.setComponents(new ArrayList<>(Arrays.asList(new Component[]{component4, component5, component6})));
 
-        simulatorService.save(simulator);
-        simulatorService.save(simulator2);
-        simulatorService.save(simulator3);
+
+        try {
+            simulatorService.save(simulator);
+            simulatorService.save(simulator2);
+            simulatorService.save(simulator3);
+
+            componentService.save(component);
+            componentService.save(component2);
+            componentService.save(component3);
+            componentService.save(component4);
+            componentService.save(component5);
+            componentService.save(component6);
+        } catch (DatabaseException e) {
+            throw e;
+        }
     }
 
 }

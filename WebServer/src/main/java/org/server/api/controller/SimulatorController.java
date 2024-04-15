@@ -27,7 +27,6 @@ import java.util.List;
 public class SimulatorController {
 
     SimulatorService simulatorService;
-    DataSeederService dataSeederService;
 
     @RequestMapping(value = "/",
             produces = {"application/json"},
@@ -38,7 +37,6 @@ public class SimulatorController {
         }
 
         try {
-            dataSeederService.initData();
             return new ResponseEntity<>(simulatorService.getAllAndParse(), HttpStatus.OK);
         } catch (DatabaseException e) {
             System.out.println(e.getMessage());
