@@ -35,13 +35,14 @@ public class KafkaService {
 
 
     public SimulatorState sendMessageAndWaitForResponse(String key, SimulatorState simulatorState) throws ExecutionException, InterruptedException, KafkaReplyTimeoutException {
-
+        // TODO async
         log.info(String.format("Send topic is -> %s", requestTopic));
 
         // post in kafka topic
         ProducerRecord<String, SimulatorState> record = new ProducerRecord<>(requestTopic, simulatorState);
         // set reply topic in header
         record.headers().add(new RecordHeader(KafkaHeaders.REPLY_TOPIC, replyTopic.getBytes()));
+//        record.headers().add(new RecordHeader(KafkaHeaders.PARTITION_ID, key.getBytes()));
 
         log.info(String.format("Record is -> %s\n", record.value().toString()));
 

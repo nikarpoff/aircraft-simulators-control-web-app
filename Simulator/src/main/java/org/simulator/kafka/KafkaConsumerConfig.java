@@ -1,6 +1,7 @@
 package org.simulator.kafka;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -16,6 +17,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +33,8 @@ public class KafkaConsumerConfig {
     @Value(value = "${kafka.groupId}")
     private String groupId;
 
-    private String schemaRegistryUrl = "http://schema-registry:8081";
+    @Value(value = "${kafka.schema_registry_url}")
+    private String schemaRegistryUrl;
 
     // =================== CONSUMER - REPLYING ===========================
     // default consumer with some properties
@@ -48,15 +51,20 @@ public class KafkaConsumerConfig {
         props.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
+        // Используем ErrorHandlingDeserializer для VALUE_DESERIALIZER_CLASS_CONFIG
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
+        props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class);
+        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, KafkaAvroDeserializer.class);
+
         props.put(
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                KafkaAvroDeserializer.class);
+                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
+                "earliest");
         props.put(
                 KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG,
                 schemaRegistryUrl);
         props.put(
-                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
-                "earliest");
+                KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG,
+                true);
 
         return new DefaultKafkaConsumerFactory<>(props);
     }

@@ -1,6 +1,7 @@
 package org.server.configuration;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -16,6 +17,7 @@ import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,9 +43,6 @@ public class KafkaProducerConfig {
     // factory for creating default producer with some configuration properties (like bootstrap address)
     @Bean
     public ProducerFactory<String, SimulatorState> producerFactory() {
-
-        System.out.printf("\n\n\nsr url: %s\n\n\n", schemaRegistryUrl);
-
         Map<String, Object> configProps = new HashMap<>();
 
         configProps.put(
@@ -57,7 +56,7 @@ public class KafkaProducerConfig {
                 KafkaAvroSerializer.class);
         configProps.put(
                 KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG,
-                "http://schema-registry:8081");
+                schemaRegistryUrl);
 
         return new DefaultKafkaProducerFactory<>(configProps);
     }
@@ -83,15 +82,25 @@ public class KafkaProducerConfig {
         props.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
-        props.put(
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                KafkaAvroDeserializer.class);
-        props.put(
-                KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG,
-                "http://schema-registry:8081");
+//        props.put(
+//                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+//                KafkaAvroDeserializer.class);
+
+
+        // Используем ErrorHandlingDeserializer для VALUE_DESERIALIZER_CLASS_CONFIG
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
+        props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class);
+        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, KafkaAvroDeserializer.class);
+
         props.put(
                 ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
                 "earliest");
+        props.put(
+                KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG,
+                schemaRegistryUrl);
+        props.put(
+                KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG,
+                true);
 
         return new DefaultKafkaConsumerFactory<>(props);
     }

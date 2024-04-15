@@ -90,6 +90,7 @@ services:
       - KAFKA_GROUPID=7654
       - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
       - KAFKA_REPLY_TOPIC=states_reply
+      - KAFKA_PARTITION=1
     links:
       - kafka
     depends_on:
@@ -104,6 +105,7 @@ services:
       - KAFKA_GROUPID=7654
       - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
       - KAFKA_REPLY_TOPIC=states_reply
+      - KAFKA_PARTITION=2
     links:
       - kafka
     depends_on:
@@ -118,6 +120,7 @@ services:
       - KAFKA_GROUPID=7654
       - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
       - KAFKA_REPLY_TOPIC=states_reply
+      - KAFKA_PARTITION=3
     links:
       - kafka
     depends_on:
