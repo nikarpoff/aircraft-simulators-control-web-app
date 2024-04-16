@@ -72,49 +72,49 @@ public class SimulatorService extends AbstractCRUDService<Simulator, Integer> {
         return response;
     }
 
-    public PeriodReport getStatistics() throws DatabaseException {
-        List<Simulator> simulators = (List<Simulator>) repository.findAll();
-        List<SimulatorStatistics> simulatorsStatistics = new ArrayList<>();
-
-        if (simulators.isEmpty()) {
-            throw new DatabaseException("Empty Database!");
-        }
-
-        for (Simulator simulator : simulators) {
-            List<ComponentStatistics> componentsStatistics = new ArrayList<>();
-
-            SimulatorStatistics simulatorStatistics = new SimulatorStatistics();
-            simulatorStatistics.setId(simulator.getId() + " " + simulator.getSimulatorName());
-
-            // TODO CHECK EMPTY COMPONENTS
-            for (Component component : simulator.getComponents()) {
-                int size = random.nextInt(6) + 6;
-
-                int[] power = new int[size];
-                int[] temperature = new int[size];
-                int[] voltage = new int[size];
-                int[] time = new int[size];
-
-                for (int i = 0; i < size; i++) {
-                    power[i] = random.nextInt(400) + 800;
-                    voltage[i] = random.nextInt(31) + 200;
-                    time[i] = random.nextInt(10) + 5;
-                    temperature[i] = random.nextInt(80) + 20;
-                }
-
-                componentsStatistics.add(new ComponentStatistics(
-                    component.getId() + component.getName(), time, temperature, power, voltage)
-                );
-            }
-
-            simulatorStatistics.setComponents(componentsStatistics);
-
-            simulatorsStatistics.add(simulatorStatistics);
-        }
-
-
-        return new PeriodReport(simulatorsStatistics);
-    }
+//    public PeriodReport getStatistics() throws DatabaseException {
+//        List<Simulator> simulators = (List<Simulator>) repository.findAll();
+//        List<SimulatorStatistics> simulatorsStatistics = new ArrayList<>();
+//
+//        if (simulators.isEmpty()) {
+//            throw new DatabaseException("Empty Database!");
+//        }
+//
+//        for (Simulator simulator : simulators) {
+//            List<ComponentStatistics> componentsStatistics = new ArrayList<>();
+//
+//            SimulatorStatistics simulatorStatistics = new SimulatorStatistics();
+//            simulatorStatistics.setId(simulator.getId() + " " + simulator.getSimulatorName());
+//
+//            // TODO CHECK EMPTY COMPONENTS
+//            for (Component component : simulator.getComponents()) {
+//                int size = random.nextInt(6) + 6;
+//
+//                int[] power = new int[size];
+//                int[] temperature = new int[size];
+//                int[] voltage = new int[size];
+//                int[] time = new int[size];
+//
+//                for (int i = 0; i < size; i++) {
+//                    power[i] = random.nextInt(400) + 800;
+//                    voltage[i] = random.nextInt(31) + 200;
+//                    time[i] = random.nextInt(10) + 5;
+//                    temperature[i] = random.nextInt(80) + 20;
+//                }
+//
+//                componentsStatistics.add(new ComponentStatistics(
+//                    component.getId() + component.getName(), time, temperature, power, voltage)
+//                );
+//            }
+//
+//            simulatorStatistics.setComponents(componentsStatistics);
+//
+//            simulatorsStatistics.add(simulatorStatistics);
+//        }
+//
+//
+//        return new PeriodReport(simulatorsStatistics);
+//    }
 
     public SimulatorResponse parseAndAdd(SimulatorRequest simulatorRequest) {
 
@@ -160,5 +160,17 @@ public class SimulatorService extends AbstractCRUDService<Simulator, Integer> {
                 simulator.getLastTechCheckDate(),
                 simulator.getTechCheckFrequency(),
                 componentsResponse);
+    }
+
+    public void deleteSimulatorById(String id) throws DatabaseException {
+        int parsedId;
+
+        try {
+            parsedId = Integer.parseInt(id);
+        } catch (Exception e) {
+            throw new DatabaseException(e.getMessage());
+        }
+
+        repository.deleteById(parsedId);
     }
 }

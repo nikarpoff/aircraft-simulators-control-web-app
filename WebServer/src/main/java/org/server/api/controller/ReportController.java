@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @RestController
@@ -53,5 +55,39 @@ public class ReportController {
 //            return new ResponseEntity<PeriodReport>(HttpStatus.INTERNAL_SERVER_ERROR);
 //        }
 //    }
+
+    @RequestMapping(value = "/statistics",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    public ResponseEntity<PeriodReport> getSimulatorsStatistics(Principal principal, @RequestParam String startDate, @RequestParam String endDate) {
+        if (principal == null) {
+            throw new ForbiddenException();
+        }
+
+        System.out.println(startDate); // 2024-04-14
+        System.out.println(endDate);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+
+        try {
+            startDateTime = LocalDateTime.parse(startDate + "T00:00:00", formatter); // exc: Text '2024-04-14T00:00:00' could not be parsed, unparsed text found at index 10
+            endDateTime = LocalDateTime.parse(endDate + "T00:00:00", formatter);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        System.out.println(startDateTime);
+        System.out.println(endDateTime);
+
+        try {
+            return new ResponseEntity<>(reportService.getPeriodReport(startDateTime, endDateTime), HttpStatus.OK);
+        } catch (DatabaseException e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

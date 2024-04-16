@@ -3,7 +3,7 @@ import CloseButton from "../UI/button/CloseButton";
 import SimulatorStatus from "./SimulatorStatus";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import moment from "moment";
+import {format} from 'date-fns';
 
 
 export default function StatusCheck() {
@@ -15,8 +15,7 @@ export default function StatusCheck() {
 
     useEffect(() => {
         getReport().then(res => {
-            res.reportDate = moment(res.reportDate);
-            res.reportDate = res.reportDate.format('MMMM Do YYYY, h:mm:ss a');
+            res.reportDate = format(new Date(res.reportDate), 'dd.MM.yyyy HH:mm:ss')
             setReport(res);
         })
     }, []);

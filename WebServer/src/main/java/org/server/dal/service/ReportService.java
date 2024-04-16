@@ -3,24 +3,29 @@ package org.server.dal.service;
 import org.server.api.dto.report.last.ComponentReport;
 import org.server.api.dto.report.last.LastReport;
 import org.server.api.dto.report.last.SimulatorReport;
+import org.server.api.dto.report.period.ComponentStatistics;
 import org.server.api.dto.report.period.PeriodReport;
+import org.server.api.dto.report.period.SimulatorStatistics;
 import org.server.dal.exception.DatabaseException;
 import org.server.dal.model.*;
 import org.server.dal.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class ReportService extends AbstractCRUDService<Report, Integer> {
 
-    ReportRepository repository;
+    private final ReportRepository repository;
+    private final SimulatorService simulatorService;
 
-    public ReportService(ReportRepository repository) {
+
+    public ReportService(ReportRepository repository, SimulatorService simulatorService) {
         super(repository);
         this.repository = repository;
+        this.simulatorService = simulatorService;
     }
 
     public LastReport getLastReport() throws DatabaseException {
@@ -70,10 +75,66 @@ public class ReportService extends AbstractCRUDService<Report, Integer> {
         return lastReport;
     }
 
-//    public PeriodReport getPeriodReport(Date startDate, Date endDate) {
-//        List<Report> reports = repository.findByReportDateTimeBetween(startDate, endDate);
-//
-//        List<SimulatorStatus> simulatorStatuses = reports
-//    }
+    public PeriodReport getPeriodReport(LocalDateTime startDate, LocalDateTime endDate) throws DatabaseException {
+        List<Report> reports = repository.findReportsByReportDateTimeBetweenOrderByReportDateTime(startDate, endDate);
+        List<Simulator> simulators = simulatorService.getAll();
+
+        Map<String, ComponentStatistics> componentStatisticsMap = new HashMap<>();
+
+        for (Report report : reports) {
+            for (SimulatorStatus simulatorStatus : report.getSimulatorStatuses()) {
+
+                System.out.println("sts: " + simulatorStatus.getComponentsStatuses());
+
+                for (ComponentStatus componentStatus : simulatorStatus.getComponentsStatuses()) {
+                    String key = String.valueOf(componentStatus.getComponent().getId());
+                    ComponentStatistics value = componentStatisticsMap.get(key);
+
+                    System.out.println("value: " + value);
+
+                    if (value == null) {
+                        value = new ComponentStatistics(key, componentStatus.getResponseTime(),
+                                componentStatus.getTemperature(),
+                                componentStatus.getPower(),
+                                componentStatus.getVoltage());
+
+                        componentStatisticsMap.put(key, value);
+                    } else {
+                        value.getResponsesTime().add(componentStatus.getResponseTime());
+                        value.getTemperatures().add(componentStatus.getTemperature());
+                        value.getPowers().add(componentStatus.getPower());
+                        value.getVoltages().add(componentStatus.getVoltage());
+
+                        System.out.println(value);
+                    }
+                }
+            }
+        }
+
+        List<SimulatorStatistics> statistics = new ArrayList<>();
+
+        for (Simulator simulator : simulators) {
+            SimulatorStatistics simulatorStatistics = new SimulatorStatistics();
+            simulatorStatistics.setId(String.valueOf(simulator.getId()));
+
+            List<ComponentStatistics> componentsStatistics = new ArrayList<>();
+            for (Component component : simulator.getComponents()) {
+                ComponentStatistics componentStatistics = componentStatisticsMap.get(String.valueOf(component.getId()));
+
+                if (componentStatistics == null) {
+                    componentStatistics = new ComponentStatistics(String.valueOf(component.getId()));
+                }
+
+                System.out.println(componentStatistics);
+
+                componentsStatistics.add(componentStatistics);
+            }
+
+            simulatorStatistics.setComponents(componentsStatistics);
+            statistics.add(simulatorStatistics);
+        }
+
+        return new PeriodReport(statistics);
+    }
 
 }

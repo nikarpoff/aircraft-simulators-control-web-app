@@ -37,51 +37,33 @@ export default function ShowSimulators() {
             console.error('Error fetching simulators:', error);
             return [];
         }
-
-        // let simulatorsResponse = [
-        //     {
-        //         id: "1235123",
-        //         model: "SIM1",
-        //         type: "Симулятор военной авиации",
-        //         simulatorName: "V-76",
-        //         productionDate: "27.12.2003",
-        //         commissioningDate: "22.01.2004",
-        //         techFrequrency: 12,
-        //         components: [
-        //             { id: "1234", name: "MUTH0" },
-        //             { id: "4356", name: "MUTL2" }
-        //         ]
-        //     },
-        //     {
-        //         id: "2225345",
-        //         model: "EMU43",
-        //         type: "Симулятор гражданской авиации",
-        //         simulatorName: "Boing-98",
-        //         productionDate: "09.11.2001",
-        //         commissioningDate: "21.04.2002",
-        //         techFrequrency: 36,
-        //         components: [
-        //             { id: "1231", name: "YUA21" }
-        //         ]
-        //     },
-        //     {
-        //         id: "1324567",
-        //         model: "ENG21",
-        //         type: "Симулятор гражданской авиации",
-        //         simulatorName: "Hork-22",
-        //         productionDate: "01.12.2006",
-        //         commissioningDate: "21.12.2006",
-        //         techFrequrency: 24,
-        //         components: [
-        //             { id: "8790", name: "LMO00" },
-        //             { id: "1456", name: "ORH12" },
-        //             { id: "0978", name: "PLL01" }
-        //         ]
-        //     }
-        // ]
-        //
-        // return simulatorsResponse;
     }
+
+
+    async function deleteSimulator( id ) {
+        const options = {
+            method: 'DELETE'
+        };
+
+        const response = await fetch(
+            `https://localhost:8443/api/v1/simulator/?id=${id}`,
+            options);
+
+        if (!response.ok) {
+            throw new Error(`Ошибка удаления симуляторов: ${response.status}`);
+        }
+    }
+
+    const handleDeleteSimulator = async (id) => {
+        try {
+            await deleteSimulator(id); // Удаление симулятора по его ID
+            const updatedSimulators = simulators.filter((simulator) => simulator.id !== id);
+            setSimulators(updatedSimulators);
+        } catch (error) {
+            console.error('Ошибка удаления симулятора:', error);
+            alert(`Ошибка удаления симулятора: ${error}`);
+        }
+    };
 
     return (
         <div className="closable-page page-container">
@@ -90,7 +72,7 @@ export default function ShowSimulators() {
 
             {isNoSimulators && <Block text={"Нет отслеживаемых симуляторов"} />}
 
-            {!isNoSimulators && simulators.map(simulator => <Simulator key={simulator.id} simulator={simulator} />)}
+            {!isNoSimulators && simulators.map(simulator => <Simulator key={simulator.id} simulator={simulator} tryDelete={handleDeleteSimulator} />)}
 
         </div>
     )

@@ -2,12 +2,17 @@ import Block from "../UI/blocks/Block";
 import RedButton from "../UI/button/RedButton";
 
 
-export default function Simulator({ simulator }) {
+export default function Simulator({ simulator, tryDelete }) {
+
+    const handleDeleteClick = () => {
+        tryDelete(simulator.id); // Вызываем функцию удаления симулятора
+    };
+
     return (
         <div className="simulator" style={{textAlign: "center"}}>
             <div style={{display: "flex"}}>
                 <Block text={"Симулятор " + simulator.id} style={{flex: 1}}/>
-                <RedButton text={"Удалить"} />
+                <RedButton text={"Удалить"} onClick={handleDeleteClick} />
             </div>
 
             <Block text={"Модель: " + simulator.model} />

@@ -29,14 +29,13 @@ export default function StatisticsReport() {
 
     async function getStatistics() {
         const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
+            method: 'GET'
         };
 
         try {
-            const response = await fetch("https://localhost:8443/api/v1/simulator/statistics", options);
+            const response = await fetch(
+                `https://localhost:8443/api/v1/report/statistics?startDate=${startDate}&endDate=${endDate}`,
+                options);
             return await response.json();
         } catch (error) {
             console.error('Error fetching simulators:', error);
