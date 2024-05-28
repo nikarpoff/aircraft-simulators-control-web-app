@@ -134,6 +134,35 @@ public class ReportService extends AbstractCRUDService<Report, Integer> {
             statistics.add(simulatorStatistics);
         }
 
+        final int MAX_POINTS_NUMBER = 15;
+        final int statisticsSize = statistics.size();
+
+        if (statisticsSize > MAX_POINTS_NUMBER) {
+            // Создаем объект Random для генерации случайных чисел
+            Random random = new Random();
+
+            int min = 0;
+
+            // Создаем массив для хранения сгенерированных чисел
+            List<Integer> randomNumbers = new ArrayList<>(MAX_POINTS_NUMBER);
+            List<SimulatorStatistics> shortStatistics = new ArrayList<>(MAX_POINTS_NUMBER);
+
+            // Генерируем 15 равномерно распределенных случайных чисел
+            for (int i = 0; i < MAX_POINTS_NUMBER; i++) {
+                // Генерируем случайное число в заданном диапазоне
+                int randomNumber = random.nextInt(statisticsSize - min) + min;
+                randomNumbers.add(randomNumber);
+            }
+
+            Collections.sort(randomNumbers);
+
+            for (int randomNumber : randomNumbers) {
+                shortStatistics.add(statistics.get(randomNumber));
+            }
+
+            return new PeriodReport(shortStatistics);
+        }
+
         return new PeriodReport(statistics);
     }
 
